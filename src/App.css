@@ -33,13 +33,13 @@ body {
 }
 
 .add-square-button {
-  top: 70px;
+  top: 90px;
   right: 10%;
   background-color: green;
 }
 
 .add-circle-button {
-  top: 109px;
+  top: 149px;
   right: 10%;
   background-color: cyan;
 }

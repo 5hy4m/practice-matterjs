@@ -106,9 +106,6 @@ function App() {
     const width = 100;
     const friends = ["achu", "kipson", "vikki", "muthu", "ranjith"];
     const randomFriend = friends[Math.floor(Math.random() * friends.length)];
-    console.log(
-      `https://ik.imagekit.io/Hello/practice_matter_js/tr:w-${width},h-${height}/${randomFriend}.jpeg`
-    );
     const friend = Bodies.rectangle(window.innerWidth / 2, 200, 100, 100, {
       render: {
         sprite: {
