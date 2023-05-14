@@ -3,7 +3,9 @@
   min-width: 100vw;
   position: relative;
 }
-
+#root {
+  height: 100%;
+}
 .wrapper {
   width: 100%;
   height: 100%;
@@ -11,8 +13,38 @@
 }
 
 body {
+  min-height: 100vh;
   margin: 0;
   padding: 0;
+}
+
+.add-button,
+.add-square-button,
+.add-circle-button {
+  padding: 10px;
+  position: absolute;
+}
+
+.add-button {
+  top: 50px;
+  right: 90px;
+  background-color: red;
+}
+
+.add-square-button {
+  top: 50px;
+  right: 200px;
+  background-color: green;
+}
+
+.add-circle-button {
+  top: 50px;
+  right: 315px;
+  background-color: cyan;
+}
+
+.add-button:hover {
+  cursor: pointer;
 }
 
 .canvas-class {

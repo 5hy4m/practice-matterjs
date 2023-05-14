@@ -1,6 +1,14 @@
 import "./App.css";
 import { useEffect, useRef } from "react";
-const Matter = require("matter-js");
+const {
+  Engine,
+  Bodies,
+  Runner,
+  Render,
+  Composite,
+  Mouse,
+  MouseConstraint,
+} = require("matter-js");
 
 function App() {
   const canvasRef = useRef(null);
@@ -8,13 +16,6 @@ function App() {
   const renderRef = useRef(null);
 
   useEffect(() => {
-    const Engine = Matter.Engine,
-      Render = Matter.Render,
-      Runner = Matter.Runner,
-      Bodies = Matter.Bodies,
-      Composite = Matter.Composite,
-      Mouse = Matter.Mouse,
-      MouseConstraint = Matter.MouseConstraint;
     // create an engine
     engineRef.current = Engine.create();
 
@@ -25,16 +26,52 @@ function App() {
       options: {
         background: "transparent",
         wireframes: false,
+        width: window.innerWidth,
+        height: window.innerHeight,
       },
     });
 
     // create two boxes and a ground
-    var boxA = Bodies.rectangle(400, 200, 80, 80);
-    var boxB = Bodies.rectangle(450, 50, 80, 80);
-    var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+    const guy = Bodies.rectangle(window.innerWidth / 2, 200, 100, 100, {
+      render: {
+        sprite: {
+          texture: `https://ik.imagekit.io/Hello/practice_matter_js/tr:w-100,h-100/shyam.jpeg`,
+        },
+      },
+    });
+
+    var ground = Bodies.rectangle(
+      window.innerWidth / 2,
+      window.innerHeight,
+      window.innerWidth,
+      100,
+      {
+        isStatic: true,
+      }
+    );
+
+    var rightWall = Bodies.rectangle(
+      window.innerWidth,
+      window.innerHeight,
+      60,
+      window.innerHeight * 2,
+      {
+        isStatic: true,
+      }
+    );
+
+    var leftWall = Bodies.rectangle(
+      0,
+      window.innerHeight,
+      60,
+      window.innerHeight * 2,
+      {
+        isStatic: true,
+      }
+    );
 
     // add all of the bodies to the world
-    Composite.add(engineRef.current.world, [boxA, boxB, ground]);
+    Composite.add(engineRef.current.world, [guy, ground, rightWall, leftWall]);
 
     // run the renderer
     Render.run(renderRef.current);
@@ -54,11 +91,46 @@ function App() {
     Composite.add(engineRef.current.world, mouseConstraint);
   }, []);
 
+  const createSquare = () => {
+    const square = Bodies.rectangle(window.innerWidth / 2, 200, 80, 80);
+    Composite.add(engineRef.current.world, square);
+  };
+
+  const createCircle = () => {
+    const circle = Bodies.circle(window.innerWidth / 2, 80, 40);
+    Composite.add(engineRef.current.world, circle);
+  };
+
+  const createFriends = () => {
+    const height = 100;
+    const width = 100;
+    const friends = ["achu", "kipson", "vikki", "muthu", "ranjith"];
+    const randomFriend = friends[Math.floor(Math.random() * friends.length)];
+    console.log(
+      `https://ik.imagekit.io/Hello/practice_matter_js/tr:w-${width},h-${height}/${randomFriend}.jpeg`
+    );
+    const friend = Bodies.rectangle(window.innerWidth / 2, 200, 100, 100, {
+      render: {
+        sprite: {
+          texture: `https://ik.imagekit.io/Hello/practice_matter_js/tr:w-${width},h-${height}/${randomFriend}.jpeg`,
+        },
+      },
+    });
+    Composite.add(engineRef.current.world, friend);
+  };
+
   return (
     <div className="App">
-      {/* <div className="wrapper"> */}
       <canvas ref={canvasRef} className="canvas-class"></canvas>
-      {/* </div> */}
+      <div className="add-button" onClick={() => createFriends()}>
+        Add friends
+      </div>
+      <div className="add-square-button" onClick={() => createSquare()}>
+        Add squares
+      </div>
+      <div className="add-circle-button" onClick={() => createCircle()}>
+        Add circles
+      </div>
     </div>
   );
 }
