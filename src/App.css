@@ -23,27 +23,30 @@ body {
 .add-circle-button {
   padding: 10px;
   position: absolute;
+  width: 80px;
 }
 
 .add-button {
-  top: 50px;
-  right: 90px;
+  top: 32px;
+  right: 10%;
   background-color: red;
 }
 
 .add-square-button {
-  top: 50px;
-  right: 200px;
+  top: 70px;
+  right: 10%;
   background-color: green;
 }
 
 .add-circle-button {
-  top: 50px;
-  right: 315px;
+  top: 109px;
+  right: 10%;
   background-color: cyan;
 }
 
-.add-button:hover {
+.add-button:hover,
+.add-square-button,
+.add-circle-button {
   cursor: pointer;
 }
 
